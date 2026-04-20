@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 TODO-GRPC
+# 📝 TODO-GRPC
 
 **A High-Performance ToDo API powered by .NET 10 & gRPC**
 
@@ -96,5 +96,6 @@ Follow these steps to get a local copy up and running quickly.
 ```
 
 <div align="center">
-  <i>Built with ❤️ using modern .NET Architecture</i>
+  <i>Built with using modern .NET Architecture</i>
+  <i>Made with ❤️ by <a href="https://github.com/YoussefS3eed">Youssef S3eed</a></i>
 </div>
