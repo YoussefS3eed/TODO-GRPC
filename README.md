@@ -1,66 +1,100 @@
-# TODO-GRPC
+<div align="center">
 
-A modern **ToDo Application Backend** built using `.NET 10`, **gRPC**, and **Entity Framework Core**. 
-This project leverages **gRPC JSON Transcoding** to expose traditional RESTful HTTP APIs alongside the high-performance gRPC services, allowing clients to interact with the API using standard HTTP/JSON requests or gRPC clients.
+# 🚀 TODO-GRPC
 
-## Features
+**A High-Performance ToDo API powered by .NET 10 & gRPC**
 
-- **gRPC Services:** High-performance RPC framework for creating, reading, updating, and deleting ToDo items.
-- **RESTful Endpoints:** Automatic transcoding of gRPC services to REST APIs via `Microsoft.AspNetCore.Grpc.JsonTranscoding`.
-- **Database:** Uses **SQLite** for lightweight, local data storage.
-- **Entity Framework Core:** EF Core is used as the ORM to manage database interactions and migrations.
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![gRPC](https://img.shields.io/badge/gRPC-RPC-244c5a?logo=grpc&logoColor=white)](https://grpc.io/)
+[![SQLite](https://img.shields.io/badge/SQLite-07405E?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![EF Core](https://img.shields.io/badge/EF%20Core-ORM-blueviolet)](https://learn.microsoft.com/en-us/ef/core/)
 
-## Technologies Used
+*Experience the speed of gRPC with the convenience of RESTful APIs via JSON Transcoding.*
 
-- .NET 10.0
-- ASP.NET Core gRPC (`Grpc.AspNetCore`)
-- gRPC JSON Transcoding (`Microsoft.AspNetCore.Grpc.JsonTranscoding`)
-- Entity Framework Core (`Microsoft.EntityFrameworkCore.Sqlite`, `Microsoft.EntityFrameworkCore.Tools`)
-- Protobuf (Google Protocol Buffers)
+</div>
 
-## API Endpoints
+---
 
-Through gRPC JSON Transcoding, the following HTTP endpoints are exposed alongside the gRPC service definition:
+## 📖 Overview
 
-| Action | HTTP Method | Endpoint | gRPC RPC Method |
-| :--- | :--- | :--- | :--- |
-| **Create ToDo** | `POST` | `/v1/todo` | `CreateToDo` |
-| **Get All ToDos** | `GET` | `/v1/todo` | `ListToDo` |
-| **Get ToDo by ID** | `GET` | `/v1/todo/{id}` | `ReadToDo` |
-| **Update ToDo** | `PUT` | `/v1/todo` | `UpdateToDo` |
-| **Delete ToDo** | `DELETE` | `/v1/todo/{id}` | `DeleteToDo` |
+**TODO-GRPC** is a robust backend service designed to manage ToDo tasks. By leveraging the power of **gRPC** inside ASP.NET Core, it offers incredibly fast remote procedure calls. 
 
-## Getting Started
+But there's a twist! Thanks to **gRPC JSON Transcoding**, this project simultaneously exposes traditional RESTful HTTP APIs. Clients can choose whether to integrate via standard `HTTP/JSON` endpoints or via high-performance gRPC clients—all without maintaining duplicate controller logic.
+
+## ✨ Key Features
+
+- ⚡ **Blazing Fast RPC:** Built on HTTP/2 and Protobuf for lightweight, heavily optimized communication.
+- 🌐 **RESTful Transcoding:** Automatically generates REST endpoints (`GET`, `POST`, `PUT`, `DELETE`) from `.proto` files.
+- 📦 **Embedded Database:** Uses **SQLite** for instant setup and zero configuration out of the box.
+- 🛠️ **Entity Framework Core:** Clean data-access architecture managed entirely through EF Core.
+
+## 🛠️ Built With
+
+* **[.NET 10](https://dotnet.microsoft.com/)** - The underlying framework providing exceptional performance.
+* **[ASP.NET Core gRPC](https://learn.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-8.0)** - RPC framework integration.
+* **[gRPC JSON Transcoding](https://learn.microsoft.com/en-us/aspnet/core/grpc/json-transcoding?view=aspnetcore-8.0)** - Exposing gRPC services as RESTful APIs.
+* **[Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/)** - Modern Object-Relational Mapper (ORM).
+* **[SQLite](https://www.sqlite.org/)** - Lightweight database engine.
+
+---
+
+## 🚦 API Endpoints
+
+Through gRPC JSON Transcoding, traditional REST endpoints are mapped seamlessly. 
+
+| Method | Endpoint | Description | gRPC Method |
+| :---: | :--- | :--- | :--- |
+| `POST` | `/v1/todo` | Create a new ToDo | `CreateToDo` |
+| `GET` | `/v1/todo` | Retrieve all ToDos | `ListToDo` |
+| `GET` | `/v1/todo/{id}` | Retrieve a specific ToDo | `ReadToDo` |
+| `PUT` | `/v1/todo` | Update an existing ToDo | `UpdateToDo` |
+| `DELETE` | `/v1/todo/{id}` | Delete a specific ToDo | `DeleteToDo` |
+
+> **Note:** Because this uses JSON Transcoding, you can test these exact endpoints using tools like **Postman** or **cURL**, just as you would with a typical Web API.
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to get a local copy up and running quickly.
 
 ### Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
+* [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 
-### Running the Application
+### Installation & Execution
 
-1. **Clone the repository:**
-   Navigate to the project directory:
+1. **Clone & Navigate**
    ```bash
    cd TODO-GRPC/TODO-GRPC
    ```
 
-2. **Apply Database Migrations:**
-   Ensure the SQLite database is created and up to date:
+2. **Run Database Migrations** 
+   Set up the local SQLite database schema.
    ```bash
    dotnet ef database update
    ```
-   *(Note: The database file `ToDoDatabase.db` might already be present in the repository.)*
+   *The `ToDoDatabase.db` file will either be created or updated automatically.*
 
-3. **Build and Run:**
+3. **Launch the Service**
    ```bash
    dotnet run
    ```
-   The application will start, and the gRPC services along with the transcoded REST endpoints will be available.
+   *Your terminal will display the active ports where the gRPC/REST APIs are listening.*
 
-## Project Structure
+---
 
-- **`Protos/`**: Contains the `.proto` files defining the gRPC services and messages (`todo.proto`, `greet.proto`). The API routing is configured inside `todo.proto` using `google.api.http` options.
-- **`Models/`**: Contains Entity Framework Core entity classes (e.g., `ToDoItem.cs`).
-- **`Data/`**: Contains the `AppDbContext` for EF Core.
-- **`Services/`**: Contains the actual C# implementations of the gRPC services defined in the `.proto` files (e.g., `ToDoService.cs`).
-- **`Program.cs`**: Application entry point where gRPC, EF Core, and JSON Transcoding are configured and services are mapped.
+## 📁 Project Structure
+
+```text
+📦 TODO-GRPC
+ ┣ 📂 Protos/        # Protocol Buffer files defining services (todo.proto)
+ ┣ 📂 Models/        # Entity Framework classes (ToDoItem.cs)
+ ┣ 📂 Data/          # EF Core Database Context (AppDbContext.cs)
+ ┣ 📂 Services/      # C# implementations of the generated gRPC services
+ ┗ 📜 Program.cs     # App entry point (gRPC configuration & JSON Transcoding)
+```
+
+<div align="center">
+  <i>Built with ❤️ using modern .NET Architecture</i>
+</div>
